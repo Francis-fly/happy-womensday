@@ -92,6 +92,42 @@
         window.addEventListener('load', () => {
             images[0].classList.add('active');
         });
+    // 系统初始化
+        let isActivated = false;
+        const audio = new Audio('./bg-music.mp3');
+        audio.volume = 0.6;
+
+        function startExperience() {
+            if(isActivated) return;
+            isActivated = true;
+
+            // 启动音乐
+            audio.loop = true;
+            audio.play().catch(err => {
+                console.error('音乐播放失败:', err);
+            });
+
+            // 启动轮播
+            setInterval(rotateImages, 3000);
+
+            // 禁用按钮
+            document.querySelector('.heart-btn').style.pointerEvents = 'none';
+        }
+
+        // 触摸支持
+        let touchStartX = 0;
+        document.querySelector('.carousel').addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        });
+        document.querySelector('.carousel').addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].clientX;
+            if(touchStartX - touchEndX > 50) rotateImages(); // 向左滑动
+            if(touchEndX - touchStartX > 50) { // 向右滑动
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                rotateImages();
+            }
+        });
+
     </script>
 </body>
 </html>
