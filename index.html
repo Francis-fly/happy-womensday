@@ -5,72 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>童春萍·女神节快乐</title>
     <style>
-/* 图片容器明确尺寸 */
-        .carousel {
-            width: min(90vw, 800px);
-            height: min(60vw, 500px);
-            margin: 20px auto;
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            background: #fff; /* 添加备用背景 */
+        :root {
+            --primary-color: #ff2277;
+            --secondary-color: #ff99cc;
         }
 
-        /* 确保图片可见性 */
-        .carousel-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-        .carousel-img.active {
-            opacity: 1;
-        }
-        /* 核心动画 */
-        @keyframes glow {
-            50% { text-shadow: 0 0 30px gold; }
-        }
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-        @keyframes slide {
-            0% { transform: translateY(20px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        /* 响应式布局 */
         body {
             margin: 0;
             min-height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #ff99cc, #ff4d94);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             font-family: 'Microsoft YaHei', cursive;
-        }
-        .container {
-            max-width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
+            touch-action: pan-y;
         }
 
-        /* 标题样式 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
         .header {
             text-align: center;
             padding: 5vh 0;
-            opacity: 0;
             animation: fadeIn 1s forwards 0.5s;
+            opacity: 0;
         }
+
         h1 {
-            font-size: min(8vw, 3.5em);
+            font-size: clamp(2rem, 8vw, 3.5rem);
             color: #fff;
             margin: 0;
             text-shadow: 0 0 20px rgba(255,105,180,0.8);
             animation: glow 2s ease-in-out infinite;
         }
 
-        /* 轮播图样式 */
         .carousel {
             width: min(90vw, 800px);
             height: min(60vw, 500px);
@@ -82,6 +51,7 @@
             opacity: 0;
             animation: slide 1s forwards 1s;
         }
+
         .carousel-img {
             width: 100%;
             height: 100%;
@@ -90,11 +60,11 @@
             opacity: 0;
             transition: opacity 1s ease;
         }
+
         .carousel-img.active {
             opacity: 1;
         }
 
-        /* 祝福语样式 */
         .message-box {
             width: min(90vw, 800px);
             margin: 3vh auto;
@@ -105,7 +75,6 @@
             animation: slide 1s forwards 2s;
         }
 
-        /* 启动按钮 */
         .heart-btn {
             width: min(15vw, 80px);
             height: min(15vw, 80px);
@@ -115,32 +84,52 @@
             animation: fadeIn 1s forwards 3s, pulse 1.5s infinite 3s;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff2277"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') center/contain no-repeat;
         }
-        @keyframes pulse {
-            50% { transform: scale(1.15); }
+
+        /* 新增音乐状态提示 */
+        .music-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px 15px;
+            border-radius: 25px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+
+        @keyframes glow { 50% { text-shadow: 0 0 30px gold; } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes slide { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes pulse { 50% { transform: scale(1.15); } }
     </style>
 </head>
 <body>
+    <!-- 新增音乐状态提示 -->
+    <div class="music-status">
+        <span>🎵 点击播放音乐</span>
+        <div class="sound-wave"></div>
+    </div>
+
     <div class="container">
-        <!-- 标题 -->
         <div class="header">
             <h1>童春萍·女神节快乐</h1>
         </div>
 
-        <!-- 图片轮播 -->
         <div class="carousel">
-            <img src="./tong-photo-1.jpg" class="carousel-img active">
-            <img src="./tong-photo-2.jpg" class="carousel-img">
-            <img src="./tong-photo-3.jpg" class="carousel-img">
-            <img src="./tong-photo-4.jpg" class="carousel-img">
-            <img src="./tong-photo-5.jpg" class="carousel-img">
-            <img src="./tong-photo-6.jpg" class="carousel-img">
-            <img src="./tong-photo-7.jpg" class="carousel-img">
+            <!-- 建议将图片文件名统一为小写 -->
+            <img src="/tong-photo-1.jpg" class="carousel-img active">
+            <img src="/tong-photo-2.jpg" class="carousel-img">
+            <img src="/tong-photo-3.jpg" class="carousel-img">
+            <img src="/tong-photo-4.jpg" class="carousel-img">
+            <img src="/tong-photo-5.jpg" class="carousel-img">
+            <img src="/tong-photo-6.jpg" class="carousel-img">
+            <img src="/tong-photo-7.jpg" class="carousel-img">
         </div>
 
-        <!-- 祝福卡片 -->
         <div class="message-box">
-            <h2 style="color:#ff2277; margin:0 0 15px;">致最亲爱的你：</h2>
+            <h2 style="color:var(--primary-color); margin:0 0 15px;">致最亲爱的你：</h2>
             <p style="font-size:1.1em; line-height:1.7; margin:0;">
                 春风不及你的温柔<br>
                 星光难掩你的璀璨<br>
@@ -149,90 +138,111 @@
             </p>
         </div>
 
-        <!-- 启动按钮 -->
-        <div class="heart-btn" onclick="startExperience()"></div>
+        <div class="heart-btn" onclick="handleStart()"></div>
     </div>
 
     <script>
-// 图片预加载验证
-        function checkImages() {
-            const imgPromises = [];
-            for(let i = 1; i <= 7; i++) {
-                const img = new Image();
-                img.src = `./tong-photo-${i}.jpg`;
-                imgPromises.push(new Promise((resolve, reject) => {
-                    img.onload = resolve;
-                    img.onerror = () => reject(`图片加载失败: tong-photo-${i}.jpg`);
-                }));
-            }
+        // 音乐管理器
+        const audioManager = (() => {
+            const audio = new Audio('/bg-music.mp3');
+            let isPlaying = false;
+            
+            audio.preload = 'auto';
+            audio.volume = 0.6;
+            
+            // 错误处理
+            audio.onerror = () => {
+                showMusicStatus('❌ 音乐加载失败');
+                console.error('音频加载失败，请检查路径和文件格式');
+            };
+            
+            audio.onloadeddata = () => {
+                showMusicStatus('🎵 点击播放音乐');
+            };
 
-            Promise.all(imgPromises)
-                .catch(error => {
-                    const errorMsg = document.createElement('div');
-                    errorMsg.style.cssText = `
-                        position: fixed;
-                        top: 20px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        padding: 15px;
-                        background: #ff4757;
-                        color: white;
-                        border-radius: 8px;
-                        z-index: 1000;
-                    `;
-                    errorMsg.textContent = error;
-                    document.body.appendChild(errorMsg);
-                });
-        }
+            return {
+                play: () => {
+                    audio.play()
+                        .then(() => isPlaying = true)
+                        .catch(err => {
+                            showMusicStatus('🎵 点击播放音乐');
+                            console.warn('需要用户交互:', err);
+                        });
+                },
+                pause: () => {
+                    audio.pause();
+                    isPlaying = false;
+                },
+                toggle: () => {
+                    isPlaying ? this.pause() : this.play();
+                }
+            };
+        })();
 
-        // 初始化时验证图片
-        checkImages();
+        // 图片轮播控制器
+        const carousel = (() => {
+            let currentIndex = 0;
+            const images = document.querySelectorAll('.carousel-img');
+            
+            return {
+                rotate: () => {
+                    images[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex + 1) % images.length;
+                    images[currentIndex].classList.add('active');
+                }
+            };
+        })();
 
-
-        // 图片轮播逻辑
-        let currentIndex = 0;
-        const images = document.querySelectorAll('.carousel-img');
-        
-        function rotateImages() {
-            images[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex + 1) % images.length;
-            images[currentIndex].classList.add('active');
-        }
-
-        // 系统初始化
+        // 初始化系统
         let isActivated = false;
-        const audio = new Audio('./bg-music.mp3');
-        audio.volume = 0.6;
-
-        function startExperience() {
+        function handleStart() {
             if(isActivated) return;
             isActivated = true;
-
+            
             // 启动音乐
-            audio.loop = true;
-            audio.play().catch(err => {
-                console.error('音乐播放失败:', err);
-            });
-
+            document.addEventListener('click', audioManager.play, { once: true });
+            audioManager.play();
+            
             // 启动轮播
-            setInterval(rotateImages, 3000);
-
+            setInterval(carousel.rotate, 3000);
+            
             // 禁用按钮
             document.querySelector('.heart-btn').style.pointerEvents = 'none';
         }
 
-        // 触摸支持
+        // 显示音乐状态
+        function showMusicStatus(text) {
+            const statusEl = document.querySelector('.music-status');
+            statusEl.style.display = 'flex';
+            statusEl.firstElementChild.textContent = text;
+        }
+
+        // 触摸事件支持
         let touchStartX = 0;
         document.querySelector('.carousel').addEventListener('touchstart', e => {
             touchStartX = e.touches[0].clientX;
         });
+        
         document.querySelector('.carousel').addEventListener('touchend', e => {
             const touchEndX = e.changedTouches[0].clientX;
-            if(touchStartX - touchEndX > 50) rotateImages(); // 向左滑动
-            if(touchEndX - touchStartX > 50) { // 向右滑动
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                rotateImages();
+            if(Math.abs(touchStartX - touchEndX) > 50) {
+                carousel.rotate();
             }
+        });
+
+        // 图片预加载检查
+        window.addEventListener('load', () => {
+            Promise.all(
+                Array.from(document.images).map(img => 
+                    new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = () => reject(img.src);
+                    })
+                )
+            ).catch(errSrc => {
+                console.error(`图片加载失败: ${errSrc}`);
+                alert('部分图片加载失败，请检查网络连接');
+            });
         });
     </script>
 </body>
